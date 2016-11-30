@@ -1,0 +1,42 @@
+File http-hsts-verify
+
+Script types: portrule 
+Categories: discovery, safe
+Download: <TO DEFINE> Link suggestion: http://nmap.org/svn/scripts/http-hsts-verify.nse
+
+
+User Summary
+
+The Strict-Transport-Security (RFC 6797) forces the browser to send all communications over HTTPS. This script verify if the HTTP Strict Transport Security (HSTS) is enable in a web service. Using a GET request and analysing the response.
+
+
+Example Usage
+
+nmap -p <port> --script=http-hsts-verify.nse <target>
+
+
+Script Output
+
+PORT    STATE SERVICE
+443/tcp open  https
+| http-hsts-verify:
+|   HTTP Strict-Transport-Security (RFC 6797) forces the browser to send all communications over HTTPS.
+|   References: https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet
+|   Banner: Strict-Transport-Security: max-age=31536000
+|_  State: HSTS is configured. (ENABLED)
+
+
+Requires
+
+http
+nmap
+shortport
+stdnse
+table
+
+
+Authors:
+
+Icaro Torres
+
+License: Same as Nmap--See https://nmap.org/book/man-legal.html
