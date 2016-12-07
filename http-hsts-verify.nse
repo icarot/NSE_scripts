@@ -39,7 +39,6 @@ action = function(host, port)
   local is_hsts = 0
 
   get_response = http.get(host, port, path)
-  request_type = "GET"
 
   if(get_response == nil) then
     return fail("Header request failed")
@@ -56,8 +55,6 @@ action = function(host, port)
     if line:match("strict.transport.security") or line:match("Strict.Transport.Security") then
       is_hsts = is_hsts + 1
       table.insert(output_info, "Banner: " .. line)
-    else
-      is_not_hsts = is_not_hsts + 1
     end
   end
 
