@@ -1,5 +1,4 @@
 local http = require "http"
-local nmap = require "nmap"
 local shortport = require "shortport"
 local stdnse = require "stdnse"
 local table = require "table"
@@ -15,7 +14,7 @@ References: https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat
 
 ---
 -- @usage
--- nmap -p <port> --script=http-hsts-verify.nse <target>
+-- nmap -p <port> --script http-hsts-verify <target>
 --
 -- @output
 -- PORT    STATE SERVICE
@@ -23,10 +22,11 @@ References: https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat
 -- | http-hsts-verify:
 -- |  HSTS is configured.
 -- |_ Header: Strict-Transport-Security: max-age=31536000
+--
+-- @args http-hsts-verify.path The URL path to request. The default path is "/".
 
 author = "Icaro Torres"
 license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
-
 categories = {"discovery", "safe"}
 
 portrule = shortport.http
@@ -35,32 +35,29 @@ local function fail (err) return stdnse.format_output(false, err) end
 
 action = function(host, port)
   local path = stdnse.get_script_args(SCRIPT_NAME..".path") or "/"
-  local status = false
   local response
   local output_info = {}
-  local is_hsts = 0
-  local hsts_header
+  local hsts_header = {}
 
   response = http.head(host, port, path)
 
-  if(response == nil) then
-    return fail("Header request failed")
+  if response == nil then
+    return fail("Request failed")
   end
 
-  if(response.rawheader == nil) then
-    return fail("GET header request didn't return a proper header")
+  if response.rawheader == nil then
+    return fail("Response didn't include a proper header")
   end
 
-  for _,line in pairs(response.rawheader) do
+  for _, line in pairs(response.rawheader) do
     if line:match("strict.transport.security") or line:match("Strict.Transport.Security") then
-      is_hsts = is_hsts + 1
-      hsts_header = line
+      table.insert(hsts_header, line)
     end
   end
 
-  if is_hsts >= 1 then
+  if #hsts_header > 0 then
     table.insert(output_info, "HSTS is configured.")
-    table.insert(output_info, "Header: " .. hsts_header)
+    table.insert(output_info, "Header: " .. table.concat(hsts_header, " "))
   else
     table.insert(output_info, "HSTS is not configured.")
   end
