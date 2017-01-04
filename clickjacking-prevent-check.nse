@@ -66,11 +66,11 @@ action = function(host, port)
     table.insert(output_info, "Header: " .. table.concat(xframe_header, " "))
 
     for _,line in pairs(xframe_header) do
-      if line:match("DENY") then
+      if line:match("DENY") or line:match("deny") then
         table.insert(output_info, "Description: The browser must not display this content in any frame.")
-      elseif line:match("SAMEORIGIN") then
+      elseif line:match("SAMEORIGIN") or line:match("sameorigin") then
         table.insert(output_info, "Description: The browser must not display this content in any frame from a page of different origin than the content itself.")
-      elseif line:match("ALLOW-FROM") then
+      elseif line:match("ALLOW.FROM") or line:match("allow.from") then
         table.insert(output_info, "Description: The browser must not display this content in a frame from any page with a top-level browsing context of different origin than the specified origin.")
       end
     end
