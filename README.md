@@ -5,4 +5,6 @@ NSE script to use with nmap tool.
 
 **clickjacking-prevent-check**: Verify if the X-Frame-Options (RFC 7034) is enabled in a web service and show the permissive level configured.
 
+**jenkins-info.nse**: Verify info exposed by default in the Jenkins service.
+
 These two scripts became one in the "http-security-headers.nse", link in the project: https://nmap.org/nsedoc/scripts/http-security-headers.html
