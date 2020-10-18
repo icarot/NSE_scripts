@@ -7,4 +7,6 @@ NSE script to use with nmap tool.
 
 **jenkins-info.nse**: Verify info exposed by default in the Jenkins service.
 
+**docker-api-exposed.nse**: Verify if a Docker API is running on a host, also list all containers activated.
+
 These two scripts became one in the "http-security-headers.nse", link in the project: https://nmap.org/nsedoc/scripts/http-security-headers.html
