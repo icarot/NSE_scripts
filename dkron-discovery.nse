@@ -40,8 +40,7 @@ action = function(host, port)
     port.version.version = dkron_version
     port.version.product = "dKron"
     nmap.set_port_version(host, port)
-    table.insert(dkron_response, "Installed version: " .. dkron_version)
-    table.insert(dkron_response, "Directory /dashboard is accessible!")
+    table.insert(dkron_response, {"Installed version: " .. dkron_version,"Directory /dashboard is accessible!"})
 
     return stdnse.format_output(true, dkron_response)
   end
