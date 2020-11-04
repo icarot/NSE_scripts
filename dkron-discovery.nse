@@ -8,15 +8,16 @@ Dkron is a system service for workload automation that runs scheduled jobs, just
 
 ---
 -- @usage
--- nmap -p 8080 --script dkron-version.nse <target>
+-- nmap -p 8080 --script dkron-discovery.nse <target>
 --
 -- @output
 --PORT     STATE SERVICE
 --8080/tcp open  dkron
---| dkron-version: 
---|_	Installed version: 3.0.6
+--| dkron-discovery: 
+--| 	Installed version: 3.0.6
+--|_	Directory /dashboard is accessible!
 --
--- @args dkron-version.path The URL path to request. The default path is "/".
+-- @args dkron-discovery.path The URL path to request. The default path is "/".
 
 author = "Icaro Torres"
 license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
@@ -38,7 +39,7 @@ action = function(host, port)
     port.version.version = dkron_version
     port.version.product = "dKron"
     nmap.set_port_version(host, port)
-    dkron_response = "\n\tInstalled version: " .. dkron_version
+    dkron_response = "\n\tInstalled version: " .. dkron_version .. "\n\tDirectory /dashboard is accessible!"
 
     return dkron_response
   end
