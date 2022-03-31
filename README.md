@@ -12,3 +12,5 @@ These two scripts became one in the "http-security-headers.nse", link in the pro
 **docker-api-exposed.nse**: Verify if a Docker API is running on a host, also list all containers activated.
 
 **dkron-discovery.nse**: Verify if a dKron service is running on a host, also will inform the installed version.
+
+**jupyter-notebook-discovery.nse**: Verify if a Jupyter Notebook is running on a host.
