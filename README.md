@@ -16,3 +16,5 @@ These two scripts became one in the "http-security-headers.nse", link in the pro
 **jupyter-notebook-discovery.nse**: Verify if a Jupyter Notebook is running on a host.
 
 **cpanel-discovery.nse**: Verify if a host is running cPanel/WHM service.
+
+**lighter-apispark.nse**: Verify if a host is running Lighter service, a REST API for Apache Spark on K8S or YARN.
